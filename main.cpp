@@ -6,9 +6,9 @@
 //=====[Defines]===============================================================
 
 #define NUMBER_OF_KEYS                           4
-#define BLINKING_TIME_GAS_ALARM               1000
-#define BLINKING_TIME_OVER_TEMP_ALARM          500
-#define BLINKING_TIME_GAS_AND_OVER_TEMP_ALARM  100
+#define BLINKING_TIME_GAS_ALARM               3000
+#define BLINKING_TIME_OVER_TEMP_ALARM         1500
+#define BLINKING_TIME_GAS_AND_OVER_TEMP_ALARM  300
 #define TIME_INCREMENT_MS                       10
 
 //=====[Declaration and initialization of public global objects]===============
