@@ -106,7 +106,6 @@ bool debounceButtonUpdate()
             if( ignition == 0 ) {
                 ignitionButtonState = BUTTON_UP;
                 ignitionReleasedEvent = true;
-                uartUsb.write( "yes\r\n", 5);
             } else {
                 ignitionButtonState = BUTTON_DOWN;
             }
