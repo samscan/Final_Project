@@ -13,7 +13,7 @@ typedef enum {
     BUTTON_RISING
 } buttonState_t;
 
-DigitalIn ignition(D12);
+DigitalIn ignition(D10);
 DigitalOut engine(LED2);
 
 buttonState_t ignitionButtonState;
@@ -28,7 +28,7 @@ bool debounceButtonUpdate();
 
 void systemStateInit()
 {
-    ignition.mode(PullDown);
+    ignition.mode(PullUp);
     debounceButtonInit();
 }
 
@@ -106,7 +106,8 @@ bool debounceButtonUpdate()
             if( ignition == 0 ) {
                 ignitionButtonState = BUTTON_UP;
                 ignitionReleasedEvent = true;
-            } else {
+            }
+            else {
                 ignitionButtonState = BUTTON_DOWN;
             }
         }
