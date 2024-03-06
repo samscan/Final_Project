@@ -6,6 +6,7 @@
 #include "motor.h"
 
 #define TIME_INCREMENT_MS                       10
+#define WHEEL_DIAMETER 0.5
 
 int accumulatedTime = 0;
 float speed;
@@ -17,17 +18,12 @@ void speedometerInit() {
 
 void speedometerUpdate() {
     speedControlUpdate();
+    motorUpdate();
 
 }
 
 float getSpeed() {
-    if (accumulatedTime >= 1000) {
-        float rps = getMotorRotCount();
-        float rpm = rps * 60.0;
-        speed = rpm;
-    }
-    else {
-        accumulatedTime = accumulatedTime + TIME_INCREMENT_MS;
-    }
-    return speed;
+    float rps = getMotorSpeed();
+    float rpm = rps * 60.0;
+    return rpm;
 }

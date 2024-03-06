@@ -11,7 +11,8 @@
 PwmOut motor(PF_8);
 InterruptIn motorHallSensor(D11);
 
-int motorRotCount = 0;
+float motorSpeed;
+int accumulatedTime = 0;
 
 static void motorHallSensorCallback();
 
@@ -20,23 +21,22 @@ void motorInit() {
     motor.write(DUTY_MIN);
     motorHallSensor.mode(PullDown);
     motorHallSensor.rise(&motorHallSensorCallback);
-    motorRotCount = 0;
+    motorSpeed = 0;
 }
 
 void motorUpdate() {
-
+    accumulatedTime = accumulatedTime + TIME_INCREMENT_MS;
 }
 
 void setMotorSpeed(float speedPercentage) {
     motor.write(speedPercentage);
 }
 
-int getMotorRotCount() {
-    int value = motorRotCount; 
-    motorRotCount = 0;
-    return value;
+int getMotorSpeed() {
+    return motorSpeed;
 }
 
 static void motorHallSensorCallback() {
-    motorRotCount = motorRotCount + 1;
+    motorSpeed = 1.0 / accumulatedTime; 
+    accumulatedTime = 0;
 }
