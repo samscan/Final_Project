@@ -21,8 +21,8 @@ void speedometerUpdate() {
 }
 
 float getSpeed() {
-    if (accumulatedTime >= 100) {
-        float rps = getMotorRotCount() / 0.1;
+    if (accumulatedTime >= 1000) {
+        float rps = getMotorRotCount();
         float rpm = rps * 60.0;
         speed = rpm;
     }

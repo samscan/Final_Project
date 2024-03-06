@@ -9,12 +9,17 @@
 #define PERIOD 0.000102
 
 PwmOut motor(PF_8);
+InterruptIn motorHallSensor(D11);
 
 int motorRotCount = 0;
+
+static void motorHallSensorCallback();
 
 void motorInit() {
     motor.period(PERIOD);
     motor.write(DUTY_MIN);
+    motorHallSensor.mode(PullDown);
+    motorHallSensor.rise(&motorHallSensorCallback);
     motorRotCount = 0;
 }
 
@@ -32,5 +37,6 @@ int getMotorRotCount() {
     return value;
 }
 
-
-//interupt - motorRotCount += 1
+static void motorHallSensorCallback() {
+    motorRotCount = motorRotCount + 1;
+}
