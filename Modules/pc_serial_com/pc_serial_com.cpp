@@ -17,7 +17,7 @@ UnbufferedSerial uartUsb(USBTX, USBRX, 115200);
 void PC_SerialUpdate()
 {
     char RPMString[30] = "";
-    sprintf(RPMString, "!%d\r\n", getSpeed());
+    sprintf(RPMString, "!%.0f\r\n", getSpeed());
     uartUsb.write( RPMString , 35 );
     
 }
