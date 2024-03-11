@@ -5,6 +5,7 @@
 #include "system_state.h"
 #include "speedometer.h"
 #include "user_interface.h"
+#include "pc_serial_com.h"
 
 #define TIME_INCREMENT_MS                       10
 
@@ -19,6 +20,7 @@ void dashboardSystemUpdate() {
     if (systemState == ON) {
         speedometerUpdate();
         userInterfaceDisplayUpdate();
+        PC_SerialUpdate();
     }
 }
 
