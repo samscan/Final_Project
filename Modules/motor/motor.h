@@ -4,6 +4,6 @@
 void motorInit();
 void motorUpdate();
 void setMotorSpeed(float speedPercentage);
-int getMotorSpeed();
+float getMotorSpeed();
 
 #endif 

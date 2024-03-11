@@ -11,7 +11,9 @@
 int accumulatedTime = 0;
 float speed;
 
-float distance;
+float accumulatedDistance = 0.0;
+
+void distanceUpdate();
 
 void speedometerInit() {
     speedControlInit();
@@ -21,6 +23,7 @@ void speedometerInit() {
 void speedometerUpdate() {
     speedControlUpdate();
     motorUpdate();
+    distanceUpdate();
     accumulatedTime = accumulatedTime + TIME_INCREMENT_MS;
 }
 
@@ -30,8 +33,12 @@ float getSpeed() {
     return rpm;
 }
 
+void distanceUpdate() {
+    float distanceTravelled = getMotorSpeed() * TIME_INCREMENT_MS / 1000.0;
+    accumulatedDistance = accumulatedDistance + distanceTravelled;
+}
 
 float getDistance() {
     //function to calculate distance traveled 
-    return 0.0;
+    return accumulatedDistance;
 }

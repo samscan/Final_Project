@@ -3,5 +3,6 @@
 
 void speedControlInit();
 void speedControlUpdate();
+float getSpeedPercentage();
 
 #endif 

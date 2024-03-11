@@ -19,3 +19,7 @@ void speedControlUpdate() {
     setMotorSpeed(speedPercentage);
 }
 
+float getSpeedPercentage() {
+    speedPercentage = gasPedal.read();
+    return speedPercentage;
+}

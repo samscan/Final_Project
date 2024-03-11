@@ -35,17 +35,17 @@ void userInterfaceDisplayUpdate()
         //12
         displayCharPositionWrite (  4,0 );
         displayStringWrite( speedString );
-        displayCharPositionWrite ( 7,0 );
-        displayStringWrite( "MPH" );
+        //displayCharPositionWrite ( 7,0 );
+        displayStringWrite( "  MPH    " );
 
        
 
         sprintf(distanceString, "%.0f", getDistance());
         
         displayCharPositionWrite ( 5,1 );
-        displayStringWrite( speedString );
-        displayCharPositionWrite ( 9,1 );
-        displayStringWrite( "MI." );
+        displayStringWrite( distanceString );
+        //displayCharPositionWrite ( 9,1 );
+        displayStringWrite( "  MI.    " );
 
     }
     else {

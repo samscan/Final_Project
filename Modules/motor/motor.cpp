@@ -7,21 +7,22 @@
 #define DUTY_MIN 0
 #define DUTY_MAX 1
 #define PERIOD 0.000102
+#define MAX_SPEED 0.7776
 
 PwmOut motor(PF_8);
-InterruptIn motorHallSensor(D11);
+//InterruptIn motorHallSensor(D11);
 
 float motorSpeed;
 int accumulatedMotorTime;
 int motorCount;
 
-static void motorHallSensorCallback();
+//static void motorHallSensorCallback();
 
 void motorInit() {
     motor.period(PERIOD);
     motor.write(DUTY_MIN);
-    motorHallSensor.mode(PullDown);
-    motorHallSensor.rise(&motorHallSensorCallback);
+    //motorHallSensor.mode(PullDown);
+    //motorHallSensor.rise(&motorHallSensorCallback);
     motorSpeed = 0;
     motorCount = 0;
     accumulatedMotorTime = 0;
@@ -35,11 +36,13 @@ void setMotorSpeed(float speedPercentage) {
     motor.write(speedPercentage);
 }
 
-int getMotorSpeed() {
-    return motorSpeed;
+float getMotorSpeed() {
+    float speedPercentage = getSpeedPercentage();
+    float rps = speedPercentage * MAX_SPEED;
+    return rps;
 }
 
-static void motorHallSensorCallback() {
+/*static void motorHallSensorCallback() {
     if (motorCount >= 48) {
         motorSpeed = 1.0 / accumulatedMotorTime;
         accumulatedMotorTime = 0;
@@ -48,4 +51,4 @@ static void motorHallSensorCallback() {
     else {
         motorCount = motorCount + 1;
     }
-}
+}*/
