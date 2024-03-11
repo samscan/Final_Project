@@ -14,6 +14,9 @@ void userInterfaceUpdate();
 bool userInterfaceCodeCompleteRead();
 void userInterfaceCodeCompleteWrite( bool state );
 
+void userInterfaceDisplayInit();
+void userInterfaceDisplayUpdate();
+
 
 //=====[#include guards - end]=================================================
 

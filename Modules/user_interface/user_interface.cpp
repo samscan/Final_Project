@@ -4,11 +4,12 @@
 #include "display.h"
 #include "motor.h"
 #include "user_interface.h"
+#include "speedometer.h"
 
 #define DISPLAY_REFRESH_TIME_MS         1000
 #define SYSTEM_TIME_INCREMENT_MS        10
 
-static void userInterfaceDisplayInit()
+void userInterfaceDisplayInit()
 {
     displayInit();
      
@@ -20,11 +21,11 @@ static void userInterfaceDisplayInit()
     
 }
 
-static void userInterfaceDisplayUpdate()
+void userInterfaceDisplayUpdate()
 {
     static int accumulatedDisplayTime = 0;
     char speedString[2] = "";
-    char distanceString[4] = ""
+    char distanceString[4] = "";
     
     if( accumulatedDisplayTime >=DISPLAY_REFRESH_TIME_MS ) {
 

@@ -11,8 +11,6 @@
 int accumulatedTime = 0;
 float speed;
 
-UnbufferedSerial uartUsb(USBTX, USBRX, 115200);
-
 float distance;
 
 void speedometerInit() {
@@ -23,10 +21,6 @@ void speedometerInit() {
 void speedometerUpdate() {
     speedControlUpdate();
     motorUpdate();
-    char str[100];
-    sprintf ( str, "%.1f\r\n", getSpeed() );
-    int length = strlen(str);
-    uartUsb.write( str, length);
     accumulatedTime = accumulatedTime + TIME_INCREMENT_MS;
 }
 
@@ -39,4 +33,5 @@ float getSpeed() {
 
 float getDistance() {
     //function to calculate distance traveled 
+    return 0.0;
 }

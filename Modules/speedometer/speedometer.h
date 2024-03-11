@@ -4,5 +4,6 @@
 void speedometerInit();
 void speedometerUpdate();
 float getSpeed();
+float getDistance();
 
 #endif 
