@@ -15,7 +15,10 @@ void dashboardSystemInit() {
 }
 void dashboardSystemUpdate() {
     systemStateUpdate();
-    speedometerUpdate();
-    userInterfaceDisplayUpdate();
+    bool systemState = getSystemState();
+    if (systemState == ON) {
+        speedometerUpdate();
+        userInterfaceDisplayUpdate();
+    }
 }
 
