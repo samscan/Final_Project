@@ -30,15 +30,17 @@ void speedometerUpdate() {
 float getSpeed() {
     float rps = getMotorSpeed();
     float rpm = rps * 60.0;
-    return rpm;
+    float rph = rpm * 60.0;
+    float iph = rpm * 2.0 * 3.14159 * .667;
+    return iph;
 }
 
 void distanceUpdate() {
-    float distanceTravelled = getMotorSpeed() * TIME_INCREMENT_MS / 1000.0;
+    float reps = getMotorSpeed() * TIME_INCREMENT_MS / 1000.0;
+    float distanceTravelled = reps * 2.0 * 3.14159 * .667;
     accumulatedDistance = accumulatedDistance + distanceTravelled;
 }
 
 float getDistance() {
-    //function to calculate distance traveled 
     return accumulatedDistance;
 }
