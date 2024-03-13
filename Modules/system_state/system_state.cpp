@@ -1,10 +1,16 @@
+//=====[Libraries]=============================================================
+
 #include "mbed.h"
 #include "arm_book_lib.h"
 
 #include "system_state.h"
 
+//=====[Declaration of private defines]========================================
+
 #define TIME_INCREMENT_MS                       10
 #define DEBOUNCE_BUTTON_TIME_MS                 40
+
+//=====[Declaration of private data types]=====================================
 
 typedef enum {
     BUTTON_UP,
@@ -13,27 +19,36 @@ typedef enum {
     BUTTON_RISING
 } buttonState_t;
 
+//=====[Declaration and initialization of public global objects]===============
+
 DigitalIn ignition(D10);
 DigitalOut engine(LED2);
 
-buttonState_t ignitionButtonState;
+//=====[Declaration and initialization of public global variables]=============
 
+buttonState_t ignitionButtonState;
 int accumulatedDebounceButtonTime = 0;
 int ignitionPressedDebounceTime = 0;
+
+//=====[Declarations (prototypes) of private functions]========================
 
 void checkStartEngine();
 void checkStopEngine();
 void debounceButtonInit();
 bool debounceButtonUpdate();
 
+//=====[Implementations of public functions]===================================
+
 void systemStateInit()
 {
+    //initializes the ignition button 
     ignition.mode(PullUp);
     debounceButtonInit();
 }
 
 void systemStateUpdate()
 {
+    //updates the engine based on the ignition button 
     if(!engine) {
         checkStartEngine();
     }
@@ -45,6 +60,7 @@ void systemStateUpdate()
 
 bool getSystemState()
 {
+    //returns whether the engine is on or off 
     if (engine == ON) {
         return ON;
     }
@@ -53,7 +69,10 @@ bool getSystemState()
     }
 }
 
+//=====[Implementations of private functions]==================================
+
 void checkStartEngine(){
+    //checks whether the engine is being started 
     bool ignitionButtonReleasedEvent = debounceButtonUpdate();
     if(ignitionButtonReleasedEvent){
         engine = ON;
@@ -63,6 +82,7 @@ void checkStartEngine(){
 }
 
 void checkStopEngine(){
+    //checks whether the engine is being stopped 
     bool ignitionButtonReleasedEvent = debounceButtonUpdate();
     if(ignitionButtonReleasedEvent){
         engine = OFF;
@@ -72,6 +92,7 @@ void checkStopEngine(){
 
 bool debounceButtonUpdate()
 {
+    //debounces the ignition button and returns whether the button is being released 
     bool ignitionReleasedEvent = false;
     switch( ignitionButtonState ) {
     
@@ -124,6 +145,7 @@ bool debounceButtonUpdate()
 
 void debounceButtonInit()
 {
+    //determines the initial state of the ignition button 
     if( ignition == 1) {
         ignitionButtonState = BUTTON_UP;
     } else {

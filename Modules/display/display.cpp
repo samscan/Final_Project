@@ -54,8 +54,6 @@
 #define DISPLAY_PIN_D6 13 
 #define DISPLAY_PIN_D7 14 
 
-//=====[Declaration of private data types]=====================================
-
 //=====[Declaration and initialization of public global objects]===============
 
 DigitalOut displayD0( D0 );
@@ -69,12 +67,6 @@ DigitalOut displayD7( D7 );
 DigitalOut displayRs( D8 );
 DigitalOut displayEn( D9 );
 
-//=====[Declaration of external public global variables]=======================
-
-//=====[Declaration and initialization of public global variables]=============
-
-//=====[Declaration and initialization of private global variables]============
-
 //=====[Declarations (prototypes) of private functions]========================
 
 static void displayPinWrite( uint8_t pinName, int value );
@@ -85,6 +77,7 @@ static void displayCodeWrite( bool type, uint8_t dataBus );
 
 void displayInit()
 {
+    //initializes the display 
     delay( 50 );
     
     displayCodeWrite( DISPLAY_RS_INSTRUCTION, 
@@ -136,6 +129,7 @@ void displayInit()
 
 void displayCharPositionWrite( uint8_t charPositionX, uint8_t charPositionY )
 {    
+    //moves the cursor to a specific position 
     switch( charPositionY ) {
         case 0:
             displayCodeWrite( DISPLAY_RS_INSTRUCTION, 
@@ -173,6 +167,7 @@ void displayCharPositionWrite( uint8_t charPositionX, uint8_t charPositionY )
 
 void displayStringWrite( const char * str )
 {
+    //writes a string to the display
     while (*str) {
         displayCodeWrite(DISPLAY_RS_DATA, *str++);
     }

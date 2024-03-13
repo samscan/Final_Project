@@ -1,54 +1,38 @@
+//=====[Libraries]=============================================================
+
 #include "mbed.h"
 #include "arm_book_lib.h"
 
+#include "motor.h"
 #include "speed_control.h"
 
-#define TIME_INCREMENT_MS                       10
+//=====[Declaration of private defines]========================================
+
 #define DUTY_MIN 0
 #define DUTY_MAX 1
 #define PERIOD 0.000102
 #define MAX_SPEED 0.7776
 
+//=====[Declaration and initialization of public global objects]===============
+
 PwmOut motor(PF_8);
-//InterruptIn motorHallSensor(D11);
 
-float motorSpeed;
-int accumulatedMotorTime;
-int motorCount;
-
-//static void motorHallSensorCallback();
+//=====[Implementations of public functions]===================================
 
 void motorInit() {
+    //initializes the motor output 
     motor.period(PERIOD);
     motor.write(DUTY_MIN);
-    //motorHallSensor.mode(PullDown);
-    //motorHallSensor.rise(&motorHallSensorCallback);
-    motorSpeed = 0;
-    motorCount = 0;
-    accumulatedMotorTime = 0;
-}
-
-void motorUpdate() {
-    accumulatedMotorTime = accumulatedMotorTime + TIME_INCREMENT_MS;
 }
 
 void setMotorSpeed(float speedPercentage) {
+    //sets the speed of the motor based on the percentage recieved 
     motor.write(speedPercentage);
 }
 
 float getMotorSpeed() {
+    //returns the speed of the motor based on the speed percentage updating the motor 
     float speedPercentage = getSpeedPercentage();
     float rps = speedPercentage * MAX_SPEED;
     return rps;
 }
-
-/*static void motorHallSensorCallback() {
-    if (motorCount >= 48) {
-        motorSpeed = 1.0 / accumulatedMotorTime;
-        accumulatedMotorTime = 0;
-        motorCount = 0;
-    }
-    else {
-        motorCount = motorCount + 1;
-    }
-}*/

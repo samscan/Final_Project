@@ -1,8 +1,13 @@
+//=====[#include guards - begin]===============================================
+
 #ifndef _SPEED_CONTROL_H_
 #define _SPEED_CONTROL_H_
 
-void speedControlInit();
+//=====[Declarations (prototypes) of public functions]=========================
+
 void speedControlUpdate();
 float getSpeedPercentage();
 
-#endif 
+//=====[#include guards - end]=================================================
+
+#endif // _SPEED_CONTROL_H_

@@ -1,3 +1,5 @@
+//=====[Libraries]=============================================================
+
 #include "mbed.h"
 #include "arm_book_lib.h"
 
@@ -5,42 +7,51 @@
 #include "speed_control.h"
 #include "motor.h"
 
-#define TIME_INCREMENT_MS                       10
-#define WHEEL_DIAMETER 0.5
+//=====[Declaration of private defines]========================================
 
-int accumulatedTime = 0;
-float speed;
+#define TIME_INCREMENT_MS 10
+#define RADIUS .667
+
+//=====[Declaration and initialization of public global variables]=============
 
 float accumulatedDistance = 0.0;
 
+//=====[Declarations (prototypes) of private functions]========================
+
 void distanceUpdate();
 
+//=====[Implementations of public functions]===================================
+
 void speedometerInit() {
-    speedControlInit();
+    //initializes the speedometer
     motorInit();
 }
 
 void speedometerUpdate() {
+    //updates the speedometer
     speedControlUpdate();
-    motorUpdate();
     distanceUpdate();
-    accumulatedTime = accumulatedTime + TIME_INCREMENT_MS;
 }
 
 float getSpeed() {
+    //returns the speed in inches per hour after recieveing it in rotations per second 
     float rps = getMotorSpeed();
     float rpm = rps * 60.0;
     float rph = rpm * 60.0;
-    float iph = rpm * 2.0 * 3.14159 * .667;
+    float iph = rpm * 2.0 * 3.14159 * RADIUS;
     return iph;
 }
 
-void distanceUpdate() {
-    float reps = getMotorSpeed() * TIME_INCREMENT_MS / 1000.0;
-    float distanceTravelled = reps * 2.0 * 3.14159 * .667;
-    accumulatedDistance = accumulatedDistance + distanceTravelled;
+float getDistance() {
+    //returns the accumulated distance travelled by the vehicle 
+    return accumulatedDistance;
 }
 
-float getDistance() {
-    return accumulatedDistance;
+//=====[Implementations of private functions]==================================
+
+void distanceUpdate() {
+    //updates the distance travelled based on the current speed during each time increments 
+    float reps = getMotorSpeed() * TIME_INCREMENT_MS / 1000.0;
+    float distanceTravelled = reps * 2.0 * 3.14159 * RADIUS;
+    accumulatedDistance = accumulatedDistance + distanceTravelled;
 }
